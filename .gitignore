@@ -1,0 +1,16 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+terraform.tfvars
+backend.tf
+key.json
+.terraform.lock.hcl
+
+# Docker
+node_modules/
+
+# OS
+.DS_Store
+terraform/backend/provider.tf
+terraform/infrastructure/provider.tf

@@ -1,0 +1,27 @@
+name: CD - Deploy on Tag
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Extract version
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Build Image with Tag
+        run: |
+          cd app
+          docker build -t nginx-app:${{ steps.version.outputs.VERSION }} .
+          
+      - name: Simulate Deploy
+        run: |
+          echo "Deploying version ${{ steps.version.outputs.VERSION }} to Kubernetes cluster..."
+          echo "Deployment to Kubernetes successful!"
